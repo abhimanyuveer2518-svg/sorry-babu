@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>I'm Sorry, My Love</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#fff7f9;
+      --primary:#c63d6b;
+      --primary-2:#a92f57;
+      --accent:#f6a8c1;
+      --soft:#fde0ea;
+      --text:#3a2a2f;
+      --muted:#7a5963;
+      --glow:0 20px 60px rgba(198,61,107,0.25);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 80% -10%, #ffeef4 0%, transparent 70%),
+        radial-gradient(900px 500px at -10% 20%, #fff1f6 0%, transparent 65%),
+        var(--bg);
+    }
+    .petals-bg{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        radial-gradient(12px 8px at 10% 20%, rgba(246,168,193,0.35) 35%, transparent 36%),
+        radial-gradient(10px 10px at 40% 60%, rgba(246,168,193,0.25) 35%, transparent 36%),
+        radial-gradient(12px 8px at 70% 30%, rgba(246,168,193,0.35) 35%, transparent 36%),
+        radial-gradient(12px 8px at 30% 80%, rgba(246,168,193,0.25) 35%, transparent 36%);
+      filter: blur(0.3px);
+    }
+    header{
+      text-align:center;
+      padding:64px 20px 28px;
+    }
+    .badge{
+      display:inline-block;
+      background:linear-gradient( to right, #ffd3e2, #ffe6ef );
+      color:var(--primary);
+      border:1px solid #ffd3e2;
+      border-radius:999px;
+      padding:10px 16px;
+      font-weight:600;
+      font-size:14px;
+      letter-spacing:0.3px;
+      box-shadow:var(--glow);
+    }
+    h1{
+      font-family:"Playfair Display", serif;
+      font-size:48px;
+      line-height:1.15;
+      margin:18px auto 12px;
+      color:var(--primary);
+      text-shadow:0 1px 0 #fff;
+      max-width:900px;
+    }
+    .sub{
+      color:var(--muted);
+      max-width:780px;
+      margin:0 auto;
+      font-size:16px;
+    }
+    .container{
+      max-width:980px;
+      margin:28px auto 80px;
+      padding:0 20px;
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap:28px;
+    }
+    @media (max-width: 900px){
+      .container{grid-template-columns:1fr}
+    }
+
+    /* Card */
+    .card{
+      background: #fff;
+      border:1px solid #ffe3ed;
+      border-radius:24px;
+      padding:28px;
+      box-shadow: 0 10px 30px rgba(198,61,107,0.12), inset 0 0 0 1px #fff;
+      position:relative;
+      overflow:hidden;
+    }
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:auto -40% -40% -40%;
+      height:60%;
+      background: radial-gradient(200px 120px at 20% 50%, #ffeef5 0%, transparent 60%);
+      opacity:0.7;
+    }
+    .quote{
+      font-family:"Playfair Display", serif;
+      font-size:24px;
+      color:#7a3a52;
+      margin:0 0 10px;
+    }
+    .date{
+      color:#a46a7b;
+      font-size:13px;
+      margin-bottom:16px;
+    }
+    .message{
+      background:linear-gradient(180deg, #fff, #fff8fb);
+      border:1px dashed #ffd4e5;
+      border-radius:16px;
+      padding:18px;
+      margin:14px 0 18px;
+      line-height:1.75;
+      color:#4b3640;
+    }
+    .sign{
+      margin-top:12px;
+      font-weight:600;
+      color:var(--primary);
+    }
+
+    /* Bouquet panel */
+    .panel{
+      background:linear-gradient(180deg, #fff, #fffafc);
+      border:1px solid #ffe3ed;
+      border-radius:24px;
+      padding:24px;
+      box-shadow:var(--glow);
+    }
+    .panel h3{
+      margin:0 0 8px;
+      font-family:"Playfair Display", serif;
+      color:#7a3a52;
+      font-size:22px;
+    }
+    .panel p{
+      margin:0 0 14px;
+      color:#6a4a56;
+    }
+    .bouquet{
+      display:grid;
+      place-items:center;
+      margin:14px 0 0;
+      padding:18px;
+      border-radius:18px;
+      background: linear-gradient(180deg, #fff, #fff7fb);
+      border:1px solid #ffd8e8;
+    }
+    .ribbon{
+      text-align:center;
+      margin-top:8px;
+      font-weight:600;
+      color:var(--primary-2);
+    }
+
+    /* Buttons */
+    .actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+    .btn{
+      appearance:none;
+      border:none;
+      border-radius:999px;
+      padding:12px 18px;
+      font-weight:600;
+      cursor:pointer;
+      transition:transform .05s ease, box-shadow .2s ease;
+    }
+    .btn:active{ transform: scale(0.98) }
+    .btn.primary{
+      background:linear-gradient( to bottom, var(--accent), #f392b0 );
+      color:#5a1f33;
+      box-shadow:var(--glow);
+    }
+    .btn.ghost{
+      background:#fff;
+      border:1px solid #ffd3e6;
+      color:#8a3c57;
+    }
+
+    /* Floating flowers */
+    .floaters{
+      position:relative;
+      height:180px;
+      overflow:hidden;
+      margin-top:10px;
+    }
+    .floater{
+      position:absolute;
+      animation: drift 16s linear infinite;
+      opacity:0.85;
+    }
+    .floater:nth-child(2){ animation-duration:20s; opacity:0.7 }
+    .floater:nth-child(3){ animation-duration:24s; opacity:0.65 }
+    @keyframes drift{
+      0%{ transform: translateX(-10%) translateY(0) rotate(0deg) }
+      50%{ transform: translateX(30%) translateY(-10px) rotate(8deg) }
+      100%{ transform: translateX(80%) translateY(0) rotate(-4deg) }
+    }
+
+    footer{
+      text-align:center;
+      color:#896373;
+      font-size:13px;
+      padding:30px 20px 60px;
+    }
+    .heart{
+      display:inline-block;
+      width:12px;
+      height:12px;
+      background: radial-gradient(circle at 35% 35%, #ff8fb0 40%, #e84f7a 41%);
+      transform: rotate(45deg);
+      border-radius:2px 2px 8px 8px;
+      position:relative;
+      margin:0 4px;
+    }
+    .heart::before, .heart::after{
+      content:"";
+      position:absolute;
+      width:12px; height:12px;
+      background: radial-gradient(circle at 60% 60%, #ff8fb0 40%, #e84f7a 41%);
+      border-radius:50%;
+    }
+    .heart::before{ left:-6px; top:-2px }
+    .heart::after{ left:2px; top:-6px }
+  </style>
+</head>
+<body>
+  <div class="petals-bg" aria-hidden="true"></div>
+
+  <header>
+    <span class="badge">With all my heart</span>
+    <h1>I'm sorry. I hurt you, and I want to make it right.</h1>
+    <p class="sub">I know I fell short. You mean the world to me, and I’m here—patient, gentle, and ready to listen.</p>
+  </header>
+
+  <main class="container">
+    <!-- Left: Message card -->
+    <section class="card" aria-label="Heartfelt apology">
+      <p class="quote">“Love isn’t perfect—but it’s honest, kind, and willing to try again.”</p>
+      <p class="date">Today</p>
+
+      <div class="message">
+        I’m truly sorry for the pain I caused. I’ve been replaying our moments, the beautiful ones and the hard ones,
+        and I see where I failed to care the way you deserve. You are my safe place, my favorite person, and I’m committed
+        to understanding, changing, and showing up better. If you’re willing, I’d like to talk—slowly, gently, whenever you’re ready.
+        <br><br>
+        No rush. No pressure. Just me, choosing you, again and again.
+        i love you so much aru babu im sorry babu u myy pyara bacha
+        you my loovie doviee sweetu cutu pie my aru you are my pyaara babu you arre 
+        ill always love you aru babu im sorry babu i love you forevr and ever babu
+      </div>
+      <div class="actions">
+        <button class="btn primary" onclick="toggleBouquet()">Open bouquet</button>
+        <button class="btn ghost" onclick="addPetal()">Add a petal</button>
+      </div>
+      <p class="sign">With love, <span id="sender">Your piddu ladoo>
+
+      <div class="floaters" aria-hidden="true">
+        <!-- Soft floating flowers (SVG) -->
+        <div class="floater" style="left:6%; top:30%">
+          <svg width="70" height="70" viewBox="0 0 100 100">
+            <defs>
+              <radialGradient id="petalPink" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#ffd9e6"/>
+                <stop offset="100%" stop-color="#f39ab3"/>
+              </radialGradient>
+            </defs>
+            <g transform="translate(50,50)">
+              <ellipse rx="14" ry="26" fill="url(#petalPink)" transform="rotate(0)"/>
+              <ellipse rx="14" ry="26" fill="url(#petalPink)" transform="rotate(60)"/>
+              <ellipse rx="14" ry="26" fill="url(#petalPink)" transform="rotate(120)"/>
+              <ellipse rx="14" ry="26" fill="url(#petalPink)" transform="rotate(180)"/>
+              <ellipse rx="14" ry="26" fill="url(#petalPink)" transform="rotate(240)"/>
+              <ellipse rx="14" ry="26" fill="url(#petalPink)" transform="rotate(300)"/>
+              <circle r="8" fill="#ffe9f1"/>
+            </g>
+          </svg>
+        </div>
+        <div class="floater" style="left:14%; top:65%">
+          <svg width="50" height="50" viewBox="0 0 100 100">
+            <g transform="translate(50,50)">
+              <circle r="22" fill="#ffb7cc"/>
+              <circle r="12" fill="#fff2f6"/>
+            </g>
+          </svg>
+        </div>
+        <div class="floater" style="left:2%; top:8%">
+          <svg width="60" height="60" viewBox="0 0 100 100">
+            <g transform="translate(50,50)">
+              <rect x="-6" y="-26" width="12" height="52" fill="#7ac18b" rx="6"/>
+              <circle r="20" fill="#f6a8c1"/>
+              <circle r="10" fill="#fff5f8"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right: Bouquet panel -->
+    <aside class="panel" aria-label="Bouquet">
+      <h3>For you, a bouquet of apologies</h3>
+      <p>Each flower carries a promise—patience, honesty, and love. I hope this brings a little softness to your day.</p>
+
+      <div class="bouquet" id="bouquet">
+        <!-- Bouquet SVG -->
+        <svg width="100%" height="220" viewBox="0 0 300 220" role="img" aria-label="Pink bouquet with ribbon">
+          <defs>
+            <radialGradient id="rose" cx="50%" cy="50%" r="60%">
+              <stop offset="0%" stop-color="#ffe3ed"/>
+              <stop offset="100%" stop-color="#f08aa7"/>
+            </radialGradient>
+            <radialGradient id="bud" cx="50%" cy="50%" r="60%">
+              <stop offset="0%" stop-color="#fff7fa"/>
+              <stop offset="100%" stop-color="#f8b1c6"/>
+            </radialGradient>
+          </defs>
+          <!-- stems -->
+          <g stroke="#7ac18b" stroke-width="4">
+            <path d="M80,200 Q140,160 140,100" fill="none"/>
+            <path d="M120,200 Q160,160 170,90" fill="none"/>
+            <path d="M160,200 Q180,160 200,100" fill="none"/>
+            <path d="M200,200 Q160,160 130,110" fill="none"/>
+          </g>
+          <!-- flowers -->
+          <g>
+            <g transform="translate(140,90)">
+              <circle r="26" fill="url(#rose)"/>
+              <circle r="12" fill="#fff2f6"/>
+            </g>
+            <g transform="translate(170,80)">
+              <circle r="22" fill="url(#bud)"/>
+              <circle r="10" fill="#fff2f7"/>
+            </g>
+            <g transform="translate(200,95)">
+              <circle r="24" fill="url(#rose)"/>
+              <circle r="11" fill="#fff2f6"/>
+            </g>
+            <g transform="translate(130,110)">
+              <circle r="20" fill="url(#bud)"/>
+              <circle r="9" fill="#fff2f8"/>
+            </g>
+          </g>
+          <!-- wrapping -->
+          <g>
+            <path d="M70,200 L220,200 L170,150 L120,150 Z" fill="#ffe6ef" stroke="#ffd3e6" stroke-width="2"/>
+            <ellipse cx="145" cy="150" rx="30" ry="12" fill="#ffeff5" stroke="#ffd3e6" stroke-width="2"/>
+          </g>
+          <!-- ribbon -->
+          <g>
+            <rect x="130" y="160" width="30" height="12" rx="6" fill="#e85f8b"/>
+            <path d="M130,172 L120,190 L140,176 Z" fill="#e85f8b"/>
+            <path d="M160,172 L170,190 L150,176 Z" fill="#e85f8b"/>
+          </g>
+        </svg>
+        <div class="ribbon">I’m sorry. I love you aru.</div>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" onclick="writeMessage()">Add a personal note</button>
+        <button class="btn ghost" onclick="toggleSignature()">Hide signature</button>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    Made with <span class="heart" aria-hidden="true"></span> and patience.
+  </footer>
+
+  <script>
+    function toggleBouquet(){
+      const el = document.getElementById('bouquet');
+      el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+    }
+    function addPetal(){
+      const bg = document.querySelector('.petals-bg');
+      const span = document.createElement('span');
+      span.style.position='absolute';
+      span.style.width='10px';
+      span.style.height='10px';
+      span.style.left= Math.round(Math.random()*95) + '%';
+      span.style.top= Math.round(Math.random()*95) + '%';
+      span.style.background='radial-gradient(10px 10px, #f6a8c1 40%, transparent 41%)';
+      span.style.opacity='0.35';
+      span.style.filter='blur(0.2px)';
+      bg.appendChild(span);
+      setTimeout(()=>span.remove(), 6000);
+    }
+    function writeMessage(){
+      const note = prompt('Write a short personal note:');
+      if(!note) return;
+      const box = document.querySelector('.message');
+      box.innerHTML = box.innerHTML + '<br><br><em>' + note.replace(/</g,'&lt;') + '</em>';
+    }
+    function toggleSignature(){
+      const s = document.getElementById('sender');
+      s.style.display = (s.style.display==='none') ? 'inline' : 'none';
+    }
+  </script>
+</body>
+</html>
